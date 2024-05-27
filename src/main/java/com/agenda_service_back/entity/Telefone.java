@@ -13,22 +13,26 @@ public class Telefone implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer id;
     protected String numero;
+//    @ManyToOne
+//    @JoinColumn(name = "pessoa_fisica_id")
+//    protected PessoaFisica pessoaFisica;
+//    @ManyToOne
+//    @JoinColumn(name = "pessoa_juridica_id")
+//    protected PessoaJuridica pessoaJuridica;
+
     @ManyToOne
-    @JoinColumn(name = "pessoaFisica_id")
-    protected Integer pessoaFisica_id;
-    @ManyToOne
-    @JoinColumn(name = "pessoaJuridica_id")
-    protected Integer pessoaJuridica_id;
+    @JoinColumn (name = "pessoa_telefone")
+    protected Pessoa pessoa;
+
 
 
     public Telefone() {
     }
 
-    public Telefone(Integer id, String numero, Integer pessoaFisica_id, Integer pessoaJuridica_id) {
+    public Telefone(Integer id, String numero) {
         this.id = id;
         this.numero = numero;
-        this.pessoaFisica_id = pessoaFisica_id;
-        this.pessoaJuridica_id = pessoaJuridica_id;
+
     }
 
     public Integer getId() {
@@ -45,22 +49,6 @@ public class Telefone implements Serializable {
 
     public void setNumero(String numero) {
         this.numero = numero;
-    }
-
-    public Integer getPessoaFisica_id() {
-        return pessoaFisica_id;
-    }
-
-    public void setPessoaFisica_id(Integer pessoaFisica_id) {
-        this.pessoaFisica_id = pessoaFisica_id;
-    }
-
-    public Integer getPessoaJuridica_id() {
-        return pessoaJuridica_id;
-    }
-
-    public void setPessoaJuridica_id(Integer pessoaJuridica_id) {
-        this.pessoaJuridica_id = pessoaJuridica_id;
     }
 
     @Override

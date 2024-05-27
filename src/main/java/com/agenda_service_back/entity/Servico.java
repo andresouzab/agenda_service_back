@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Null;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 @Entity
 public class Servico implements Serializable {
@@ -23,23 +25,26 @@ public class Servico implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "categoria_id")
-    protected Integer categoria_id;
+    protected Categoria categoria;
     @ManyToOne
-    @JoinColumn(name = "pessoaJuridica_id")
-    protected Integer pessoaJuridica_id;
+    @JoinColumn(name = "pessoa_juridica_id")
+    protected PessoaJuridica pessoaJuridica;
+
+    @OneToMany (mappedBy = "servico")
+    private List<Agendamento> agendamento = new ArrayList<>();
 
 
     public Servico() {
     }
-    public Servico(Integer id, String nome, Double preco, String descricao, String informacoes_extras, String status, Integer categoria_id, Integer pessoaJuridica_id) {
+    public Servico(Integer id, String nome, Double preco, String descricao, String informacoes_extras, String status, Categoria categoria, PessoaJuridica pessoaJuridica) {
         this.id = id;
         this.nome = nome;
         this.preco = preco;
         this.descricao = descricao;
         this.informacoes_extras = informacoes_extras;
         this.status = status;
-        this.categoria_id = categoria_id;
-        this.pessoaJuridica_id = pessoaJuridica_id;
+        this.categoria = categoria;
+        this.pessoaJuridica = pessoaJuridica;
     }
 
     public Integer getId() {
@@ -90,20 +95,20 @@ public class Servico implements Serializable {
         this.status = status;
     }
 
-    public Integer getCategoria_id() {
-        return categoria_id;
+    public Categoria getCategoria_id() {
+        return categoria;
     }
 
-    public void setCategoria_id(Integer categoria_id) {
-        this.categoria_id = categoria_id;
+    public void setCategoria_id(Categoria categoria) {
+        this.categoria = categoria;
     }
 
-    public Integer getPessoaJuridica_id() {
-        return pessoaJuridica_id;
+    public PessoaJuridica getPessoaJuridica_id() {
+        return pessoaJuridica;
     }
 
-    public void setPessoaJuridica_id(Integer pessoaJuridica_id) {
-        this.pessoaJuridica_id = pessoaJuridica_id;
+    public void setPessoaJuridica_id(PessoaJuridica pessoaJuridica) {
+        this.pessoaJuridica = pessoaJuridica;
     }
 
     @Override

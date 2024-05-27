@@ -1,8 +1,11 @@
 package com.agenda_service_back.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -13,12 +16,16 @@ public class Cidade implements Serializable {
     protected Integer id;
 
     @Column(unique = true)
-    @OneToMany(mappedBy = "cidade")
+
     protected String nome;
 
     @ManyToOne
     @JoinColumn(name = "estado_id")
     protected Estado estado;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "cidade")
+    private List<Endereco> endereco = new ArrayList<>();
 
     public Cidade() {
     }

@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Null;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -21,16 +23,16 @@ public class Endereco implements Serializable {
     @Null
     protected String complemento;
     protected String bairro;
+    //verificar na tabela
     @ManyToOne
     @JoinColumn(name = "cidade_id")
     protected Cidade cidade;
-    @OneToMany(mappedBy = "estado_id")
-    protected Estado estado;
-
+    @OneToMany(mappedBy = "endereco")
+    protected List<Pessoa> pessoa = new ArrayList<>();
 
     public Endereco() {
     }
-    public Endereco(Integer id, String rua, String cep, Integer numero, String complemento, String bairro, Cidade cidade, Estado estado) {
+    public Endereco(Integer id, String rua, String cep, Integer numero, String complemento, String bairro, Cidade cidade) {
         this.id = id;
         this.rua = rua;
         this.cep = cep;
@@ -38,7 +40,6 @@ public class Endereco implements Serializable {
         this.complemento = complemento;
         this.bairro = bairro;
         this.cidade = cidade;
-        this.estado = estado;
     }
 
     public Integer getId() {
@@ -95,14 +96,6 @@ public class Endereco implements Serializable {
 
     public void setCidade(Cidade cidade) {
         this.cidade = cidade;
-    }
-
-    public Estado getEstado() {
-        return estado;
-    }
-
-    public void setEstado(Estado estado) {
-        this.estado = estado;
     }
 
     @Override

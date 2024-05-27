@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 @Entity
@@ -19,19 +22,22 @@ public class Pessoa implements Serializable {
 
     protected String senha;
 
-    protected Telefone telefone;
+    //verificar na tabela
+    @OneToMany(mappedBy = "pessoa")
+    protected List<Telefone> telefone = new ArrayList<>();
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "pessoa_endereco_id")
     protected Endereco endereco;
 
     public Pessoa() {
     }
 
-    public Pessoa(Integer id, String nome, String email, String senha, Telefone telefone, Endereco endereco) {
+    public Pessoa(Integer id, String nome, String email, String senha, Endereco endereco) {
         this.id = id;
         this.nome = nome;
         this.email = email;
         this.senha = senha;
-        this.telefone = telefone;
         this.endereco = endereco;
     }
 
@@ -67,11 +73,11 @@ public class Pessoa implements Serializable {
         this.senha = senha;
     }
 
-    public Telefone getTelefone() {
+    public List<Telefone> getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(Telefone telefone) {
+    public void setTelefone(List<Telefone> telefone) {
         this.telefone = telefone;
     }
 
@@ -82,6 +88,7 @@ public class Pessoa implements Serializable {
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
     }
+
 
     @Override
     public boolean equals(Object o) {

@@ -1,20 +1,29 @@
 package com.agenda_service_back.entity;
 
-import java.util.Date;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+@Entity
 public class PessoaFisica extends Pessoa{
     private static final long serialVersionUID = 1L;
-
     protected String cpf;
     protected Date data_nascimento;
+
+    @OneToMany (mappedBy = "pessoaFisica")
+    protected List<Agendamento> agendamento = new ArrayList<>();
+//    @OneToMany (mappedBy = "pessoaFisica")
+//    protected List<Telefone> telefone = new ArrayList<>();
 
 
     public PessoaFisica() {
        super();
     }
 
-    public PessoaFisica(Integer id, String nome, String email, String senha, Telefone telefone, Endereco endereco, String cpf, Date data_nascimento) {
-        super(id, nome, email, senha, telefone, endereco);
+    public PessoaFisica(String cpf, Date data_nascimento) {
         this.cpf = cpf;
         this.data_nascimento = data_nascimento;
     }
