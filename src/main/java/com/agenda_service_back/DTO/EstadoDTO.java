@@ -1,33 +1,27 @@
 package com.agenda_service_back.DTO;
 
-
 import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
 
-
-public class CategoriaDTO implements Serializable {
+public class EstadoDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     protected Integer id;
+
     @NotNull(message = "o campo NOME é requerido.")
     protected String nome;
-
-    @NotNull(message = "o campo DESCRIÇÃO é requerido.")
-    protected String descricao;
-
-//    protected List<ServicDTO> servico;
+    @NotNull(message = "o campo UF é requerido.")
+    protected String uf;
 
 
-
-    public CategoriaDTO() {
+    public EstadoDTO() {
 
     }
-
-    public CategoriaDTO(Integer id, String nome, String descricao) {
+    public EstadoDTO(Integer id, String nome, String uf) {
         this.id = id;
         this.nome = nome;
-        this.descricao = descricao;
+        this.uf = uf;
     }
 
     public Integer getId() {
@@ -46,13 +40,11 @@ public class CategoriaDTO implements Serializable {
         this.nome = nome;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public String getUf() {
+        return uf;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setUf(String uf) {
+        this.uf = uf;
     }
-
-
 }

@@ -4,6 +4,7 @@ import com.agenda_service_back.entity.Endereco;
 import com.agenda_service_back.entity.Estado;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -15,14 +16,43 @@ public class CidadeDTO implements Serializable {
 
     protected Integer id;
 
-    @Column(unique = true)
-
+    @NotNull(message = "o campo NOME é requerido.")
     protected String nome;
 
-
+    @NotNull(message = "o campo ESTADO é requerido.")
     protected Estado estado;
 
+    public CidadeDTO() {
 
-    private List<Endereco> enderecos = new ArrayList<>();
+    }
 
+    public CidadeDTO(Integer id, String nome, Estado estado) {
+        this.id = id;
+        this.nome = nome;
+        this.estado = estado;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public Estado getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Estado estado) {
+        this.estado = estado;
+    }
 }

@@ -1,38 +1,32 @@
-package com.agenda_service_back.entity;
+package com.agenda_service_back.DTO;
 
-import jakarta.persistence.*;
+import com.agenda_service_back.entity.Cidade;
+
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Null;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
-@Entity
-public class Endereco implements Serializable {
+public class EnderecoDTO implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer id;
-    @Column(unique = true)
+
+    @NotNull(message = "o campo RUA é requerido.")
     protected String rua;
+    @NotNull(message = "o campo CEP é requerido.")
     protected String cep;
+    @NotNull(message = "o campo NUMERO é requerido.")
     protected Integer numero;
-
+    @NotNull(message = "o campo COMPLEMENTO é requerido.")
     protected String complemento;
+    @NotNull(message = "o campo BAIRRO é requerido.")
     protected String bairro;
-    //verificar na tabela
-    @ManyToOne
-    @JoinColumn(name = "cidade_id")
-    protected Cidade cidade;
-    @OneToMany(mappedBy = "endereco")
-    protected List<Pessoa> pessoa = new ArrayList<>();
+    @NotNull(message = "o campo CIDADE é requerido.")
 
-    public Endereco() {
-    }
-    public Endereco(Integer id, String rua, String cep, Integer numero, String complemento, String bairro, Cidade cidade) {
+    protected Cidade cidade;
+
+    public EnderecoDTO(Integer id, String rua, String cep, Integer numero, String complemento, String bairro, Cidade cidade) {
         this.id = id;
         this.rua = rua;
         this.cep = cep;
@@ -40,6 +34,9 @@ public class Endereco implements Serializable {
         this.complemento = complemento;
         this.bairro = bairro;
         this.cidade = cidade;
+    }
+
+    public EnderecoDTO() {
     }
 
     public Integer getId() {
@@ -97,18 +94,4 @@ public class Endereco implements Serializable {
     public void setCidade(Cidade cidade) {
         this.cidade = cidade;
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Endereco endereco = (Endereco) o;
-        return Objects.equals(id, endereco.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
 }
-
